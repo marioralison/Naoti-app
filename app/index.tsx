@@ -1,8 +1,9 @@
-import { Dimensions, StyleSheet, Text, Image, View, KeyboardAvoidingView } from 'react-native'
+import { Dimensions, StyleSheet, Text, Image, View, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import SearchBar from '@/components/SearchBar';
 import AddButton from '@/components/addButton';
+import { DrawerActions, useNavigation } from '@react-navigation/native';
 
 const { height : heightMain} = Dimensions.get("window");    
 
@@ -12,6 +13,10 @@ const index = () => {
     const [textInput,setTextInput] = useState<string>("Naoti");
     const [searchText, setSearchText] = useState('');
     const [headerHeight, setHeaderHeight] = useState(0);
+    const navigation = useNavigation();
+    const openMenu = () => {
+        navigation.dispatch(DrawerActions.openDrawer())
+    }
 
     return (
             <SafeAreaView style={{
@@ -22,7 +27,9 @@ const index = () => {
             }}>
                 <View style={styles.header}>
                     <View style={styles.iconHeader}>
-                        <Image style={styles.icon} source={require('../assets/icons/Menu.png')}></Image>
+                        <TouchableOpacity onPress={openMenu}>
+                            <Image style={styles.icon} source={require('../assets/icons/Menu.png')}></Image>
+                        </TouchableOpacity>
                         <Image style={styles.icon} source={require('../assets/images/ISPM.png')}></Image>
                     </View>
                 
